@@ -1,0 +1,5 @@
+downloads/
+!downloads/.gitkeep
+venv
+*.pyc
+.vscode
