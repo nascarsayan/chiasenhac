@@ -17,7 +17,7 @@ def main():
       l = len(data)
       for idx, edata in enumerate(data):
         if 'url' not in edata or 'status' not in edata or edata['status'] == 'no':
-          print('Downloading %3d of %3d : %s' (idx, l, edata['name']))
+          print('Downloading %3d of %3d : %s' % (idx, l, edata['name']))
           response = requests.get(CSN, params={'s': edata['name']})
           # print(response.content)
           tree = html.fromstring((clean_html(response.content)).strip())
@@ -35,7 +35,7 @@ def main():
           data[idx]['status'] = 'yes'
           sleep(1)
         else:
-          print('Already downloaded %3d of %3d : %s' (idx, l, edata['name']))
+          print('Already downloaded %3d of %3d : %s' % (idx, l, edata['name']))
   finally:
     with open('urls.json', 'w') as fp:
       json.dump(data, fp, sort_keys=True, indent=2)
