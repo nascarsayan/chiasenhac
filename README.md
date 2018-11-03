@@ -1,6 +1,6 @@
 ## [CSN](http://chiasenhac.vn) downloader
 
-Baby Steps to create a chiasenhac downloader. Feel free to contribute.
+Baby Steps to create a batch chiasenhac downloader from query strings. Feel free to contribute.
 
 Requirements:
   - python3, and a python environment satisfying [these](requirements.txt) requirements.
