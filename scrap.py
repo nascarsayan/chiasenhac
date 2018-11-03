@@ -30,7 +30,7 @@ def main():
           # print(response.content)
           tree = html.fromstring((clean_html(response.content)).strip())
           mlink = tree.xpath("//div[@id='downloadlink2']//a[last() - 1]/@href")[0]
-          os.system('aria2c "%s" -l ./downloads' % (mlink))
+          os.system('aria2c "%s" -d ./downloads' % (mlink))
           data[idx]['url'] = mlink
           data[idx]['status'] = 'yes'
           sleep(1)
