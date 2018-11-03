@@ -17,7 +17,7 @@ def main():
       l = len(data)
       for idx, edata in enumerate(data):
         if 'status' not in edata or edata['status'] == 'no':
-          print('Downloading %3d of %3d : %s' % (idx, l, edata['name']))
+          print('Downloading %3d of %3d : %s' % (idx + 1, l, edata['name']))
           mlink = ''
           if 'url' not in edata:
             response = requests.get(CSN, params={'s': edata['name']})
@@ -39,7 +39,7 @@ def main():
           data[idx]['status'] = 'yes'
           sleep(1)
         else:
-          print('Already downloaded %3d of %3d : %s' % (idx, l, edata['name']))
+          print('Already downloaded %3d of %3d : %s' % (idx + 1, l, edata['name']))
   except FileNotFoundError as fe:
     print('Creating urls.json... Rerun code')
   finally:
