@@ -1,4 +1,4 @@
-downloads/
+downloads/*
 !downloads/.gitkeep
 venv
 *.pyc
