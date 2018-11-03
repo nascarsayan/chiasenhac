@@ -36,6 +36,8 @@ def main():
           sleep(1)
         else:
           print('Already downloaded %3d of %3d : %s' % (idx, l, edata['name']))
+  except FileNotFoundError as fe:
+    print('Creating urls.json... Rerun code')
   finally:
     with open('urls.json', 'w') as fp:
       json.dump(data, fp, sort_keys=True, indent=2)

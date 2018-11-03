@@ -15,3 +15,5 @@ Specify folders containing music if you want to redownload them in better qualit
 [jsonify_queies.py](jsonify_queies.py) appends the queries in [urls.json](urls.json).
 
 [add_folders.py](add_folders.py) extracts names as queries from the filenames in the folders specified in [folders.txt](folders.txt) and appends them to [urls.json](urls.json). I had songs in the format `album_name_-_song-name.mp3`.
+
+Running [scrap.py](scrap.py) will download music to [downloads](downloads/)
