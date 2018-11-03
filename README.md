@@ -6,7 +6,8 @@ Requirements:
   - python3, and a python environment satisfying [these](requirements.txt) requirements.
   - a command line downloader (I have used aria2). Make changes [here](scrap.py#L33).
 
-[urls.json](urls.json) is the main configuration file, containing an array of objects, each containing the self-explanatory fields **name**, **url** and **status**.
+[urls.json](urls.json) is the main configuration file, containing an array of objects, each containing the fields **name**, **url** and **status**.
+Urls will appear after downloading, and status will toggle or be set to yes.
 
 Specify search queries in [queries.txt](queries.txt) separated by newlines.
 
