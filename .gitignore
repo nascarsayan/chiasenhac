@@ -3,3 +3,6 @@ downloads/*
 venv
 *.pyc
 .vscode
+folders.txt
+queries.txt
+urls.json

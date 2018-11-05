@@ -6,6 +6,7 @@ from lxml import html, etree
 from lxml.html.clean import clean_html
 import requests
 from time import sleep
+import urllib.request as urllib2
 
 CSN = 'http://search.chiasenhac.vn/search.php'
 
@@ -20,18 +21,29 @@ def main():
           print('Downloading %3d of %3d : %s' % (idx + 1, l, edata['name']))
           mlink = ''
           if 'url' not in edata:
-            response = requests.get(CSN, params={'s': edata['name']})
-            # print(response.content)
-            tree = html.fromstring((clean_html(response.content)).strip())
-            page1 = tree.xpath("//table[@class='tbtable'][1]//tr[2]//td[2]//a[@class='musictitle']/@href")[0]
-            response = requests.get(page1)
-            # print(response.content)
-            tree = html.fromstring((clean_html(response.content)).strip())
-            page2 = tree.xpath("//img[@src='http://data.chiasenhac.com/images/button_download.gif']/../@href")[0]
-            response = requests.get(page2)
-            # print(response.content)
-            tree = html.fromstring((clean_html(response.content)).strip())
-            mlink = tree.xpath("//div[@id='downloadlink2']//a[last() - 1]/@href")[0]
+            qual = 1
+            found = False
+            while not found:
+              response = requests.get(CSN, params={'s': edata['name']})
+              # print(response.content)
+              tree = html.fromstring((clean_html(response.content)).strip())
+              page1 = tree.xpath("//table[@class='tbtable'][1]//tr[2]//td[2]//a[@class='musictitle']/@href")[0]
+              response = requests.get(page1)
+              # print(response.content)
+              tree = html.fromstring((clean_html(response.content)).strip())
+              page2 = tree.xpath("//img[@src='http://data.chiasenhac.com/images/button_download.gif']/../@href")[0]
+              response = requests.get(page2)
+              # print(response.content)
+              tree = html.fromstring((clean_html(response.content)).strip())
+              mlink = tree.xpath("//div[@id='downloadlink2']//a[last() - %d]/@href" %(qual))[0]
+              request = urllib2.Request(mlink)
+              request.get_method = lambda : 'HEAD'
+              response = urllib2.urlopen(request)
+              if 'http://chiasenhac.vn/' not in response.url:
+                found = True
+              else:
+                print('Reducing quality')
+                qual += 1
           else:
             mlink = edata['url']
           os.system('aria2c "%s" -d ./downloads' % (mlink))
