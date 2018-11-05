@@ -4,7 +4,7 @@ Baby Steps to create a batch chiasenhac downloader from query strings. Feel free
 
 Requirements:
   - python3, and a python environment satisfying [these](requirements.txt) requirements.
-  - a command line downloader (I have used aria2). Make changes [here](scrap.py#L33).
+  - a command line downloader (I have used aria2). Make changes [here](scrap.py#L49).
 
 **Add files folders.txt and queries.txt in the root directory.**
 
