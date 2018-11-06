@@ -21,7 +21,7 @@ def main():
     # print(response.content)
     treem = html.fromstring((clean_html(response.content)).strip())
     cntpage = len(treem.xpath("//table[@class='tbtable'][1]//tr[@title]"))
-    for idx in range(cntpage):
+    for idx in range(4, cntpage):
       if (curr == quan):
         break
       try:
@@ -34,18 +34,24 @@ def main():
         response = requests.get(page2)
         qual = 1
         found = False
+        tree2 = html.fromstring((clean_html(response.content)).strip())
         while not found:
-          tree = html.fromstring((clean_html(response.content)).strip())
-          mlink = tree.xpath("//div[@id='downloadlink2']//a[last() - %d]/@href" %(qual))[0]
-          request = urllib2.Request(mlink)
-          request.get_method = lambda : 'HEAD'
-          response = urllib2.urlopen(request)
-          if 'http://chiasenhac.vn/' not in response.url:
-            found = True
-          else:
+          try:
+            mlink = tree2.xpath("//div[@id='downloadlink2']//a[last() - %d]/@href" %(qual))[0]
+            request = urllib2.Request(mlink)
+            print(mlink)
+            request.get_method = lambda : 'HEAD'
+            response = urllib2.urlopen(request)
+            print('ok')
+            if 'http://chiasenhac.vn/' not in response.url:
+              found = True
+            else:
+              print('Reducing quality')
+              qual += 1
+          except Exception as e:
             print('Reducing quality')
             qual += 1
-        os.system('aria2c "%s" -d ./downloads' % (mlink))
+        # os.system('aria2c "%s" -d ./downloads' % (mlink))
         sleep(1)
       except Exception as e:
         print(e)
