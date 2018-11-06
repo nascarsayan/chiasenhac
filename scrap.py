@@ -55,13 +55,14 @@ def main():
   except FileNotFoundError as fe:
     print('Creating urls.json... Rerun code')
   finally:
-    if len(data) > 0:
-      data[-1]['status'] = 'no'
+    data2 = []
     if os.path.isfile('urls.json'):
       with open('urls.json', 'r') as fp:
         data2 = json.load(fp)
         data = data + data2[len(data):]
     with open('urls.json', 'w') as fp:
       json.dump(data, fp, sort_keys=True, indent=2)
+    if os.path.isfile('urls.json') and len(data2) > len(data):
+      main()
 
 main()
