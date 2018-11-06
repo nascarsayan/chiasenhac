@@ -21,7 +21,7 @@ def main():
     # print(response.content)
     treem = html.fromstring((clean_html(response.content)).strip())
     cntpage = len(treem.xpath("//table[@class='tbtable'][1]//tr[@title]"))
-    for idx in range(4, cntpage):
+    for idx in range(cntpage):
       if (curr == quan):
         break
       try:
