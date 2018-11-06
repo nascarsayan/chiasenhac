@@ -13,7 +13,8 @@ CSN = 'http://search.chiasenhac.vn/search.php'
 
 def main():
   quan = int(argv[1])
-  query = ' '.join(argv[2:])
+  st = int(argv[2])
+  query = ' '.join(argv[3:])
   page = 1
   curr = 0
   while (curr < quan):
@@ -22,12 +23,15 @@ def main():
     treem = html.fromstring((clean_html(response.content)).strip())
     cntpage = len(treem.xpath("//table[@class='tbtable'][1]//tr[@title]"))
     for idx in range(cntpage):
+      curr += 1
+      if (st > curr):
+        continue
       if (curr == quan):
         break
       try:
         page1 = treem.xpath("//table[@class='tbtable'][1]//tr[@title][%d]/td[2]//a[@class='musictitle']/@href" % (idx + 1))[0]
         title = treem.xpath("//table[@class='tbtable'][1]//tr[@title][%d]/td[2]//a//text()" % (idx + 1))[0]
-        print('Downloading %3d of %3d : %s' % (curr + 1, quan, title))
+        print('Downloading %3d of %3d : %s' % (curr, quan, title))
         response = requests.get(page1)
         tree = html.fromstring((clean_html(response.content)).strip())
         page2 = tree.xpath("//img[@src='http://data.chiasenhac.com/images/button_download.gif']/../@href")[0]
@@ -54,6 +58,5 @@ def main():
         sleep(1)
       except Exception as e:
         print(e)
-      curr += 1
     page += 1
 main()
