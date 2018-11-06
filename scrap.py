@@ -57,6 +57,10 @@ def main():
   finally:
     if len(data) > 0:
       data[-1]['status'] = 'no'
+    if os.path.isfile('urls.json'):
+      with open('urls.json', 'r') as fp:
+        data2 = json.load(fp)
+        data = data + data2[len(data):]
     with open('urls.json', 'w') as fp:
       json.dump(data, fp, sort_keys=True, indent=2)
 
