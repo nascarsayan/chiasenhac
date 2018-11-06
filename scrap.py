@@ -26,7 +26,7 @@ def main():
             response = requests.get(CSN, params={'s': edata['name']})
             # print(response.content)
             tree = html.fromstring((clean_html(response.content)).strip())
-            page1 = tree.xpath("//table[@class='tbtable'][1]//tr[2]//td[2]//a[@class='musictitle']/@href")[0]
+            page1 = tree.xpath("//table[@class='tbtable'][1]//tr[@title][1]//td[2]//a[@class='musictitle']/@href")[0]
             response = requests.get(page1)
             # print(response.content)
             tree = html.fromstring((clean_html(response.content)).strip())
