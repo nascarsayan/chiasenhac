@@ -51,7 +51,7 @@ def main():
           except Exception as e:
             print('Reducing quality')
             qual += 1
-        # os.system('aria2c "%s" -d ./downloads' % (mlink))
+        os.system('aria2c "%s" -d ./downloads' % (mlink))
         sleep(1)
       except Exception as e:
         print(e)
