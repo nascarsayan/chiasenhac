@@ -42,7 +42,6 @@ def main():
             print(mlink)
             request.get_method = lambda : 'HEAD'
             response = urllib2.urlopen(request)
-            print('ok')
             if 'http://chiasenhac.vn/' not in response.url:
               found = True
             else:
